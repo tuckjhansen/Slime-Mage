@@ -6,6 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
     public BoxCollider2D boxCollider2D;
     private bool facingRight = true;
+    private float moveDirection;
 
     // awake is called after all objects are initialized. Called in random order.
     private void awake(){
@@ -22,17 +23,13 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector3 stickDirection = new Vector3(horizontal, 0, vertical);
-        Vector3 move = new Vector3(horizontal * 10f * Time.deltaTime, 0f, 0f);
-        transform.Translate(move * Time.deltaTime);
-
-        if (horizontal < 0 && facingRight)
+        transform.Translate(Input.GetAxis("Horizontal") * 10f * Time.deltaTime, 0f, 0f);
+        /*moveDirection = Input.GetAxis("Horizontal");*/
+        if (moveDirection < 0 && facingRight)
         {
             Flip();
         }
-        else if (horizontal > 0 && !facingRight)
+        else if (moveDirection > 0 && !facingRight)
         {
             Flip();
         }
