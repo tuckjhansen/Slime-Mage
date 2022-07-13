@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 // using Trace;
 
 public class Movement : MonoBehaviour {
     public BoxCollider2D boxCollider2D;
     private bool facingRight = true;
     private float moveDirection;
+    public float BeatrixHealth;
+    public Text BeaHealthText;
 
     // awake is called after all objects are initialized. Called in random order.
     private void awake(){
@@ -17,12 +20,13 @@ public class Movement : MonoBehaviour {
 
     // start is called before first frame
     void start(){
-
+        BeaHealthText.text = BeatrixHealth.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+        BeaHealthText.text = BeatrixHealth.ToString();
         transform.Translate(Input.GetAxis("Horizontal") * 10f * Time.deltaTime, 0f, 0f);
         /*moveDirection = Input.GetAxis("Horizontal");*/
         if (moveDirection < 0 && facingRight)
@@ -36,7 +40,7 @@ public class Movement : MonoBehaviour {
 
         if (Input.GetButton("Jump") && IsGrounded()) 
         {
-            transform.Translate(0f, .02f, 0f);
+            transform.Translate(0f, .025f, 0f);
         }
     }
 

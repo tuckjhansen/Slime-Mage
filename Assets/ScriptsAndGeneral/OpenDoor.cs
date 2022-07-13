@@ -10,6 +10,7 @@ public class OpenDoor : MonoBehaviour
     private bool okToMoveOn = true;
     public BoxCollider2D BoxColliderOff2D;
     public Rigidbody2D OpenDoorComponent;
+    public bool enteredDoor = false;
 
     private void awake()
     {
@@ -23,13 +24,34 @@ public class OpenDoor : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D plyr)
     {
-        if (Input.GetButton("Fire1")){
+        if (plyr.tag == "player")
+        {
+            enteredDoor = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D plyr)
+    {
+        if (plyr.tag == "player")
+        {
+            enteredDoor = false;
+        }
+    }
+
+    public void Update()
+    {
+        if (enteredDoor && Input.GetButton("Fire1"))
+        {
+            ActivateDoor();
+        }
+    }
+
+    public void ActivateDoor()
+    {
             myAnimator.SetTrigger(OpenDoorAnimation);
             BoxColliderOff2D.enabled = false;
-            if (DoorOpen && (Input.GetButton("Fire1") && okToMoveOn))
+            if (DoorOpen && Input.GetButton("Fire1") && okToMoveOn)
             {
                 OpenDoorComponent.gravityScale = -1;
                 DoorOpen = false;
@@ -37,17 +59,15 @@ public class OpenDoor : MonoBehaviour
                 StartCoroutine("DoCheck");
             }
 
-            if (!DoorOpen && (Input.GetButton("Fire1") && okToMoveOn))
+            else if (!DoorOpen && Input.GetButton("Fire1") && okToMoveOn)
             {
                 OpenDoorComponent.gravityScale = 1;
                 DoorOpen = true;
                 okToMoveOn = false;
                 StartCoroutine("DoCheck");
             }
-            
-        }
     }
-    void Test()
+    private void Test()
     {
         okToMoveOn = true;
     }
