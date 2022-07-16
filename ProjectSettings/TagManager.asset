@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - player
+  - Interactable
+  - Slime Sea
   layers:
   - Default
   - TransparentFX
@@ -41,7 +44,7 @@ TagManager:
   - name: Background
     uniqueID: 3402042651
     locked: 0
-  - name: Enemies
+  - name: EnemiesAndInteractables
     uniqueID: 2893415649
     locked: 0
   - name: Default

@@ -5,22 +5,51 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     public Rigidbody2D FloorCollider;
+    Animator myAnimator;
+    const string OpenDoorAnimation2 = "Triggered?";
     public Rigidbody2D RoofCollider;
     public Rigidbody2D WindowCollider;
     public Rigidbody2D InvisBarrierCollider;
     private bool goingDown = true;
     private bool okToMoveOn = true;
+    private bool Activated = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        myAnimator = GetComponent<Animator>();
+    }
+
+    // Sets up Collision with player makes it activatable
+    void OnTriggerEnter2D(Collider2D plyr)
+    {
+        if (plyr.tag == "player")
+        {
+            Activated = true;
+
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D plyr)
+    {
+        if (plyr.tag == "player")
+        {
+            Activated = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Activated && Input.GetButton("Fire1"))
+        {
+            ActivateElevator();
+        }
+    }
+    void ActivateElevator()
+    {
         if (Input.GetButton("Fire1"))
         {
+            myAnimator.SetTrigger(OpenDoorAnimation2);
             if (goingDown && okToMoveOn)
             {
                 FloorCollider.gravityScale = -2;
@@ -43,10 +72,12 @@ public class Elevator : MonoBehaviour
             }
         }
     }
-    private void Test()
+
+    void Test()
     {
         okToMoveOn = true;
     }
+
     IEnumerator DoCheck2()
     {
         while (!okToMoveOn)
