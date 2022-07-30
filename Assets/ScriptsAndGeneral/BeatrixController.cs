@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-// using Trace;
 
-public class Movement : MonoBehaviour {
+public class BeatrixController : MonoBehaviour 
+{
     public BoxCollider2D boxCollider2D;
     private bool facingRight = true;
     private float moveDirection;
@@ -16,13 +16,11 @@ public class Movement : MonoBehaviour {
     public Canvas canvasToTurnOff;
     public Canvas DeadCanvas;
     public SpriteRenderer BeaSpriteRenderer;
-
-    // awake is called after all objects are initialized. Called in random order.
-    private void awake(){
-
-        boxCollider2D = transform.GetComponent<BoxCollider2D>();
-        
-    }
+    private bool touchingTarr = false;
+    private bool hurtWaitOver = true;
+    public Slider HealthSlider;
+    public Image beatrixOwchImage;
+    private bool beatrixNotHurtingAnymore;
 
     // start is called before first frame
     void Start(){
@@ -49,7 +47,7 @@ public class Movement : MonoBehaviour {
             transform.Translate(0f, .025f, 0f);
         }
 
-        if (TouchingSlimeSea == true)
+        if (TouchingSlimeSea)
         {
             TouchSlimeSea();
         }
@@ -61,6 +59,11 @@ public class Movement : MonoBehaviour {
             CamDead.enabled = true;
             canvasToTurnOff.enabled = false;
             DeadCanvas.enabled = true;
+        }
+        if (touchingTarr)
+        {
+            UpdateHealth();
+            TouchTarr();
         }
     }
 
@@ -90,18 +93,27 @@ public class Movement : MonoBehaviour {
         BeaSpriteRenderer.flipX = !BeaSpriteRenderer.flipX;
     }
 
-    void OnTriggerEnter2D(Collider2D SlimeSea)
+    void OnTriggerEnter2D(Collider2D BadCollider)
     {
-        if (SlimeSea.tag == "Slime Sea")
+        if (BadCollider.tag == "Slime Sea")
         {
             TouchingSlimeSea = true;
         }
+        if (BadCollider.tag == "Tarr")
+        {
+            touchingTarr = true;
+        }
     }
-    void OnTriggerExit2D(Collider2D SlimeSea)
+
+    void OnTriggerExit2D(Collider2D BadCollider)
     {
-        if (SlimeSea.tag == "Slime Sea")
+        if (BadCollider.tag == "Slime Sea")
         {
             TouchingSlimeSea = false;
+        }
+        if (BadCollider.tag == "Tarr")
+        {
+            touchingTarr = false;
         }
     }
     void TouchSlimeSea()
@@ -109,6 +121,44 @@ public class Movement : MonoBehaviour {
         BeatrixHealth = 0;
         BeaHealthText.text = BeatrixHealth.ToString();
 
+    }
+    void UpdateHealth()
+    {
+        BeaHealthText.text = BeatrixHealth.ToString();
+    }
+    void TouchTarr()
+    {
+        if (hurtWaitOver == true)
+        {
+            BeatrixHealth -= 10;
+            HealthSlider.value -= 0.1f;
+            hurtWaitOver = false;
+            StartCoroutine("DoCheck");
+            beatrixOwchImage.enabled = true;
+            StartCoroutine("PainCoolDown");
+        }
+    }
+    IEnumerator DoCheck()
+    {
+        while (hurtWaitOver == false)
+        {
+
+            yield return new WaitForSeconds(1f);
+            TarrOwchAgain();
+        }
+    }
+    IEnumerator PainCoolDown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ScreenPainBeatrixOff();
+    }
+    void TarrOwchAgain()
+    {
+        hurtWaitOver = true;
+    }
+    void ScreenPainBeatrixOff()
+    {
+        beatrixOwchImage.enabled = false;
     }
 }
 

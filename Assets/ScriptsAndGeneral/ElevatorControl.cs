@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
+public class ElevatorControl : MonoBehaviour
 {
     public Rigidbody2D FloorCollider;
     Animator myAnimator;
     const string OpenDoorAnimation2 = "Triggered?";
-    public Rigidbody2D RoofCollider;
-    public Rigidbody2D WindowCollider;
-    public Rigidbody2D InvisBarrierCollider;
-    private bool goingDown = true;
+    public bool atBottom = false;
     private bool okToMoveOn = true;
     private bool Activated = false;
+    public GameObject elevatorFloor;
     // Start is called before the first frame update
     void Start()
     {
         myAnimator = GetComponent<Animator>();
+        elevatorFloor = GameObject.Find("Floor");
+
     }
 
     // Sets up Collision with player makes it activatable
@@ -50,24 +50,19 @@ public class Elevator : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             myAnimator.SetTrigger(OpenDoorAnimation2);
-            if (goingDown && okToMoveOn)
+            if (/*elevatorFloor.GetComponent("atBottom")*/ atBottom && okToMoveOn)
             {
                 FloorCollider.gravityScale = -2;
-                RoofCollider.gravityScale = -2;
-                WindowCollider.gravityScale = -2;
-                InvisBarrierCollider.gravityScale = -2;
                 okToMoveOn = false;
-                goingDown = false;
+                /*elevatorFloor.GetComponent("atBottom")  = false;*/
+                atBottom = false;
                 StartCoroutine("DoCheck2");
             }
-            if (!goingDown && okToMoveOn)
+            if (/*!elevatorFloor.GetComponent("atBottom")*/ !atBottom && okToMoveOn)
             {
                 FloorCollider.gravityScale = 1;
-                RoofCollider.gravityScale = 1;
-                WindowCollider.gravityScale = 1;
-                InvisBarrierCollider.gravityScale = 1;
                 okToMoveOn = false;
-                goingDown = true;
+                atBottom = true;
                 StartCoroutine("DoCheck2");
             }
         }
