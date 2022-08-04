@@ -20,7 +20,10 @@ public class BeatrixController : MonoBehaviour
     private bool hurtWaitOver = true;
     public Slider HealthSlider;
     public Image beatrixOwchImage;
-    private bool beatrixNotHurtingAnymore;
+    public Transform beatrixPosition;
+    public Vector3 lastSavedLocation = new Vector3(-5.66f, 6.95f);
+    private bool touchingBench;
+    public Vector3 currentLocation;
 
     // start is called before first frame
     void Start(){
@@ -30,6 +33,7 @@ public class BeatrixController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentLocation = new Vector3(beatrixPosition.position.x, beatrixPosition.position.y);
         BeaHealthText.text = BeatrixHealth.ToString();
         transform.Translate(Input.GetAxis("Horizontal") * 10f * Time.deltaTime, 0f, 0f);
         moveDirection = Input.GetAxis("Horizontal");
@@ -59,11 +63,28 @@ public class BeatrixController : MonoBehaviour
             CamDead.enabled = true;
             canvasToTurnOff.enabled = false;
             DeadCanvas.enabled = true;
+            if (Input.GetButton("Fire1"))
+            {
+                BeatrixHealth = 100;
+                transform.position = lastSavedLocation;
+                CamAlive.enabled = true;
+                CamDead.enabled = false;
+                canvasToTurnOff.enabled = true;
+                DeadCanvas.enabled = false;
+                HealthSlider.value = HealthSlider.maxValue;
+            }
         }
         if (touchingTarr)
         {
             UpdateHealth();
             TouchTarr();
+        }
+        if (touchingBench && Input.GetButton("Fire1"))
+        {
+            BeatrixHealth = 100;
+            HealthSlider.value = HealthSlider.maxValue;
+            lastSavedLocation = currentLocation;
+            UpdateHealth();
         }
     }
 
@@ -93,27 +114,35 @@ public class BeatrixController : MonoBehaviour
         BeaSpriteRenderer.flipX = !BeaSpriteRenderer.flipX;
     }
 
-    void OnTriggerEnter2D(Collider2D BadCollider)
+    void OnTriggerEnter2D(Collider2D colliderOfEnemiesAndBenches)
     {
-        if (BadCollider.tag == "Slime Sea")
+        if (colliderOfEnemiesAndBenches.tag == "Slime Sea")
         {
             TouchingSlimeSea = true;
         }
-        if (BadCollider.tag == "Tarr")
+        if (colliderOfEnemiesAndBenches.tag == "Tarr")
         {
             touchingTarr = true;
         }
+        if (colliderOfEnemiesAndBenches.tag == "Bench")
+        {
+            touchingBench = true;
+        }
     }
 
-    void OnTriggerExit2D(Collider2D BadCollider)
+    void OnTriggerExit2D(Collider2D colliderOfEnemiesAndBenches)
     {
-        if (BadCollider.tag == "Slime Sea")
+        if (colliderOfEnemiesAndBenches.tag == "Slime Sea")
         {
             TouchingSlimeSea = false;
         }
-        if (BadCollider.tag == "Tarr")
+        if (colliderOfEnemiesAndBenches.tag == "Tarr")
         {
             touchingTarr = false;
+        }
+        if (colliderOfEnemiesAndBenches.tag == "Bench")
+        {
+            touchingBench = false;
         }
     }
     void TouchSlimeSea()
