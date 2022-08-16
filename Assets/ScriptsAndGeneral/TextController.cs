@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour
 {
     public Text pushActivateButtonText;
+    public Text pushRestBenchButtonText;
     private int xboxOneController = 0;
 
 
@@ -30,10 +31,12 @@ public class TextController : MonoBehaviour
         if (xboxOneController == 1)
         {
             pushActivateButtonText.text = "Push Y to Activate";
+            pushRestBenchButtonText.text = "Push Y to Rest";
         }
         if (xboxOneController <= 0)
         {
             pushActivateButtonText.text = "Push S to Activate";
+            pushRestBenchButtonText.text = "Push S to Rest";
         }
 
 

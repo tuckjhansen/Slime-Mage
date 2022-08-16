@@ -24,6 +24,7 @@ public class BeatrixController : MonoBehaviour
     public Vector3 lastSavedLocation = new Vector3(-5.66f, 6.95f);
     private bool touchingBench;
     public Vector3 currentLocation;
+    public Image BeatrixRestImage;
 
     // start is called before first frame
     void Start(){
@@ -85,6 +86,8 @@ public class BeatrixController : MonoBehaviour
             HealthSlider.value = HealthSlider.maxValue;
             lastSavedLocation = currentLocation;
             UpdateHealth();
+            BeatrixRestImage.enabled = true;
+            StartCoroutine("RestImageOffTimer");
         }
     }
 
@@ -188,6 +191,16 @@ public class BeatrixController : MonoBehaviour
     void ScreenPainBeatrixOff()
     {
         beatrixOwchImage.enabled = false;
+    }
+    void RestImageOff()
+    {
+        BeatrixRestImage.enabled = false;
+    }
+
+    IEnumerator RestImageOffTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        RestImageOff();
     }
 }
 

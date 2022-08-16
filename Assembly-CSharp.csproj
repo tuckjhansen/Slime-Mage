@@ -57,14 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ScriptsAndGeneral\GameManager.cs" />
+    <Compile Include="Assets\ScriptsAndGeneral\AttackManager.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\MainMenu.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\SceneIndexes.cs" />
+    <Compile Include="Assets\ScriptsAndGeneral\TextController.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\ElevatorControl.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\Follow_Player.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\BeatrixController.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\OpenDoor.cs" />
     <Compile Include="Assets\ScriptsAndGeneral\BabyTarr.cs" />
-    <Compile Include="Assets\ScriptsAndGeneral\TextController.cs" />
+    <Compile Include="Assets\QuantumScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
