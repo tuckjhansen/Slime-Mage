@@ -9,6 +9,8 @@ TagManager:
   - Slime Sea
   - Tarr
   - Bench
+  - Key
+  - SlimeGate
   layers:
   - Default
   - TransparentFX
