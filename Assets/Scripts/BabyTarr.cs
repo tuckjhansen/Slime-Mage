@@ -7,24 +7,38 @@ public class BabyTarr : MonoBehaviour
     public float babyTarrMoveSpeed;
     public Rigidbody2D babyTarrRB;
     public GameObject groundCheck;
+    private SpriteRenderer tarrSpriteRenderer;
+    public EdgeCollider2D tarrCollider1;
+    public BoxCollider2D tarrCollider2;
     public LayerMask groundLayer;
     public bool facingRight;
     public bool isGrounded;
     public float circleRadiusGroundCheck;
     public bool Loaded = false;
+    private int babyTarrHealth = 10;
+    private BeatrixController BeatrixController;
+    private Vector3 respawnPoint;
 
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        /*babyTarrRB = GetComponent<Rigidbody2D>();*/
+        tarrCollider1 = GetComponent<EdgeCollider2D>();
+        tarrCollider2 = GetComponent<BoxCollider2D>();
+        tarrSpriteRenderer = GetComponent<SpriteRenderer>();
+        BeatrixController = FindObjectOfType<BeatrixController>();
+        respawnPoint = new Vector3(transform.position.x, transform.position.y);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (BeatrixController.BeatrixHealth <= 0)
+        {
+            babyTarrHealth = 10;
+            tarrSpriteRenderer.enabled = true;
+            tarrCollider1.enabled = true;
+            tarrCollider2.enabled = true;
+            transform.position = respawnPoint;
+            tarrSpriteRenderer.color = Color.white;
+        }
         StartCoroutine("LoadWait");
         if (Loaded)
         {
@@ -39,7 +53,13 @@ public class BabyTarr : MonoBehaviour
                 Flip();
             }
         }
-
+        if (babyTarrHealth <= 0)
+        {
+            babyTarrHealth = 0;
+            tarrSpriteRenderer.enabled = false;
+            tarrCollider1.enabled = false;
+            tarrCollider2.enabled = false;
+        }
     }
 
     void Flip()
@@ -61,5 +81,19 @@ public class BabyTarr : MonoBehaviour
     void SettingLoadedToTrue()
     {
         Loaded = true;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PinkSlime")
+        {
+            babyTarrHealth -= 5;
+            tarrSpriteRenderer.color = Color.red;
+            StartCoroutine("UnRed");
+        }
+    }
+    IEnumerator UnRed()
+    {
+        yield return new WaitForSeconds(.2f);
+        tarrSpriteRenderer.color = Color.white;
     }
 }

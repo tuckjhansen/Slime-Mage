@@ -11,15 +11,14 @@ public class ElevatorControl : MonoBehaviour
     private bool okToMoveOn = true;
     private bool Activated = false;
     public GameObject elevatorFloor;
-    // Start is called before the first frame update
+    public ElevatorControl elevatorControl;
     void Start()
     {
         myAnimator = GetComponent<Animator>();
         elevatorFloor = GameObject.Find("Floor");
-
+        elevatorControl = GameObject.FindObjectOfType<ElevatorControl>();
     }
 
-    // Sets up Collision with player makes it activatable
     void OnTriggerEnter2D(Collider2D plyr)
     {
         if (plyr.tag == "player")
@@ -37,7 +36,6 @@ public class ElevatorControl : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Activated && Input.GetButton("Activate"))
@@ -50,18 +48,19 @@ public class ElevatorControl : MonoBehaviour
         if (Input.GetButton("Activate"))
         {
             myAnimator.SetTrigger(OpenDoorAnimation2);
-            if (/*elevatorFloor.GetComponent("atBottom")*/ atBottom && okToMoveOn)
+            if (atBottom && okToMoveOn)
             {
-                FloorCollider.gravityScale = -3;
+                FloorCollider.gravityScale = -4;
                 okToMoveOn = false;
-                /*elevatorFloor.GetComponent("atBottom")  = false;*/
+                elevatorControl.atBottom = false;
                 atBottom = false;
                 StartCoroutine("DoCheck2");
             }
-            if (/*!elevatorFloor.GetComponent("atBottom")*/ !atBottom && okToMoveOn)
+            if (!atBottom && okToMoveOn)
             {
-                FloorCollider.gravityScale = 2;
+                FloorCollider.gravityScale = 1;
                 okToMoveOn = false;
+                elevatorControl.atBottom = true;
                 atBottom = true;
                 StartCoroutine("DoCheck2");
             }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1733499813592204435}
   - component: {fileID: 1733499813592204433}
   - component: {fileID: 1733499813592204446}
-  - component: {fileID: 1363930119}
+  - component: {fileID: 4128955594180480797}
   m_Layer: 0
   m_Name: BabyRainbowTarr
   m_TagString: Tarr
@@ -102,6 +102,8 @@ MonoBehaviour:
   babyTarrMoveSpeed: 250
   babyTarrRB: {fileID: 1733499813592204433}
   groundCheck: {fileID: 1733499813644237485}
+  tarrCollider1: {fileID: 0}
+  tarrCollider2: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -174,8 +176,8 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!68 &1363930119
-EdgeCollider2D:
+--- !u!61 &4128955594180480797
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -187,15 +189,19 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.025510192, y: -0.44735527}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.87, y: 0.9}
+    newSize: {x: 0.87, y: 0.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5657654, y: 0.0053032637}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.27890617, y: -0.4541836}
-  - {x: -0.29918355, y: -0.4502311}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1 &1733499813644237485
 GameObject:
   m_ObjectHideFlags: 0

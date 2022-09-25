@@ -11,6 +11,8 @@ TagManager:
   - Bench
   - Key
   - SlimeGate
+  - PinkSlime
+  - AreaAnouncer
   layers:
   - Default
   - TransparentFX

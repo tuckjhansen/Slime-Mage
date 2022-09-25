@@ -57,11 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AttackManager.cs" />
+    <Compile Include="Assets\Scripts\PinkSlime.cs" />
     <Compile Include="Assets\Scripts\KeyController.cs" />
     <Compile Include="Assets\Scripts\ElevatorControl.cs" />
     <Compile Include="Assets\Scripts\BeatrixController.cs" />
+    <Compile Include="Assets\Scripts\WingTarr.cs" />
     <Compile Include="Assets\Scripts\QuantumScript.cs" />
     <Compile Include="Assets\GeneralSprites\GameManager.cs" />
+    <Compile Include="Assets\Scripts\RainbowTarrScript.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\SceneIndexes.cs" />
     <Compile Include="Assets\Scripts\TextController.cs" />
@@ -69,6 +72,11 @@
     <Compile Include="Assets\Scripts\TrapChamber.cs" />
     <Compile Include="Assets\Scripts\OpenDoor.cs" />
     <Compile Include="Assets\Scripts\BabyTarr.cs" />
+    <Compile Include="Assets\Scripts\reactorScript.cs" />
+    <Compile Include="Assets\Scripts\portal1Script.cs" />
+    <Compile Include="Assets\Scripts\EnterNewArea.cs" />
+    <Compile Include="Assets\Scripts\BossDetectorScript.cs" />
+    <Compile Include="Assets\Scripts\QuantumBossController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -735,6 +743,12 @@
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>

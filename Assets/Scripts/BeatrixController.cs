@@ -49,7 +49,7 @@ public class BeatrixController : MonoBehaviour
 
         if (Input.GetButton("Jump") && IsGrounded()) 
         {
-            transform.Translate(0f, .05f, 0f);
+            transform.Translate(0f, 14.55f * Time.deltaTime, 0f);
         }
 
         if (TouchingSlimeSea)
@@ -175,13 +175,13 @@ public class BeatrixController : MonoBehaviour
         while (hurtWaitOver == false)
         {
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.7f);
             TarrOwchAgain();
         }
     }
     IEnumerator PainCoolDown()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(.3f);
         ScreenPainBeatrixOff();
     }
     void TarrOwchAgain()

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2864569776129225866}
   - component: {fileID: 2864569776129225869}
   - component: {fileID: 2864569776129225868}
-  - component: {fileID: 2864569776129225871}
+  - component: {fileID: 3683364624159314280}
+  - component: {fileID: 1748063802}
   m_Layer: 0
   m_Name: RainBowTarr (6)
   m_TagString: Tarr
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2864569776129225857}
-  m_LocalRotation: {x: -0.000011905618, y: 0.99998796, z: 0.0037355844, w: -0.0031870906}
+  m_LocalRotation: {x: -0.000014318699, y: 0.99998796, z: 0.0037350142, w: -0.0031850566}
   m_LocalPosition: {x: 146.73, y: -173.96, z: 55.19}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
@@ -100,7 +101,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -150,8 +151,8 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!68 &2864569776129225871
-EdgeCollider2D:
+--- !u!61 &3683364624159314280
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -163,12 +164,31 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.07495743, y: -0.28108275}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.87, y: 0.9}
+    newSize: {x: 0.87, y: 0.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.29378474, y: 0.328465}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.12494534, y: -0.44946572}
-  - {x: 0.31222537, y: -0.45157176}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
+--- !u!114 &1748063802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864569776129225857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411b2be71b420094e9940b653498c6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tarrhealth: 20
+  tarrCollider1: {fileID: 0}
+  tarrCollider2: {fileID: 0}

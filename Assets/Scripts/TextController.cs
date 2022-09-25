@@ -7,8 +7,8 @@ public class TextController : MonoBehaviour
 {
     public Text pushActivateButtonText;
     public Text pushRestBenchButtonText;
+    public Text pushToPlayWhenDeadText;
     private int xboxOneController = 0;
-
 
     void Update()
     {
@@ -32,15 +32,13 @@ public class TextController : MonoBehaviour
         {
             pushActivateButtonText.text = "Push Y to Activate";
             pushRestBenchButtonText.text = "Push Y to Rest";
+            pushToPlayWhenDeadText.text = "Push Y to Play";
         }
         if (xboxOneController <= 0)
         {
             pushActivateButtonText.text = "Push S to Activate";
             pushRestBenchButtonText.text = "Push S to Rest";
+            pushToPlayWhenDeadText.text = "Push S to Play";
         }
-
-
-
-
     }
 }
