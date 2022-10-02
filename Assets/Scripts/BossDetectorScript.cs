@@ -8,13 +8,14 @@ public class BossDetectorScript : MonoBehaviour
     public Rigidbody2D TrapDoor1;
     public Rigidbody2D TrapDoor2;
     private QuantumBossController quantumBossController;
-    private bool Activated = false;
+    public bool Activated = false;
+    public GameObject QuantumBoss;
 
     void Start()
     {
-        quantumBossController = FindObjectOfType<QuantumBossController>();
+        quantumBossController = Boss.GetComponent<QuantumBossController>();
     }
-    
+
     void Update()
     {
         if (quantumBossController.Health <= 0 && Activated)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OpenDoor : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class OpenDoor : MonoBehaviour
     public BoxCollider2D BoxColliderOff2D;
     public Rigidbody2D OpenDoorComponent;
     public bool enteredDoor = false;
-    
+    public Text PushButtonToOpen;
 
     void Start()
     {
@@ -38,6 +39,14 @@ public class OpenDoor : MonoBehaviour
         if (enteredDoor && Input.GetButton("Activate"))
         {
             ActivateDoor();
+        }
+        if (enteredDoor == true)
+        {
+            PushButtonToOpen.enabled = true;
+        }
+        if (enteredDoor == false)
+        {
+            PushButtonToOpen.enabled = false;
         }
     }
 

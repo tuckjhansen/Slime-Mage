@@ -56,11 +56,15 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\portal1Script.cs" />
     <Compile Include="Assets\Scripts\AttackManager.cs" />
     <Compile Include="Assets\Scripts\PinkSlime.cs" />
     <Compile Include="Assets\Scripts\KeyController.cs" />
     <Compile Include="Assets\Scripts\ElevatorControl.cs" />
     <Compile Include="Assets\Scripts\BeatrixController.cs" />
+    <Compile Include="Assets\Scripts\QuantumBossController.cs" />
+    <Compile Include="Assets\Scripts\reactorScript.cs" />
+    <Compile Include="Assets\Scripts\BossDetectorScript.cs" />
     <Compile Include="Assets\Scripts\WingTarr.cs" />
     <Compile Include="Assets\Scripts\QuantumScript.cs" />
     <Compile Include="Assets\GeneralSprites\GameManager.cs" />
@@ -70,13 +74,11 @@
     <Compile Include="Assets\Scripts\TextController.cs" />
     <Compile Include="Assets\Scripts\Follow_Player.cs" />
     <Compile Include="Assets\Scripts\TrapChamber.cs" />
+    <Compile Include="Assets\Scripts\EnterNewArea.cs" />
     <Compile Include="Assets\Scripts\OpenDoor.cs" />
     <Compile Include="Assets\Scripts\BabyTarr.cs" />
-    <Compile Include="Assets\Scripts\reactorScript.cs" />
-    <Compile Include="Assets\Scripts\portal1Script.cs" />
-    <Compile Include="Assets\Scripts\EnterNewArea.cs" />
-    <Compile Include="Assets\Scripts\BossDetectorScript.cs" />
-    <Compile Include="Assets\Scripts\QuantumBossController.cs" />
+    <Compile Include="Assets\Scripts\QuantumBossTarrSpike.cs" />
+    <Compile Include="Assets\SignController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -15,8 +15,7 @@ public class portal1Script : MonoBehaviour
     private Vector3 RuinsCoords;
     private portal1Script DesertPortalScript;
     private portal1Script RuinsPortalScript;
-
-
+    
     void Start()
     {
         DesertCoords = DesertPortal1.transform.position;

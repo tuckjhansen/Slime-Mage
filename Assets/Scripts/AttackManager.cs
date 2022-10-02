@@ -55,7 +55,13 @@ public class AttackManager : MonoBehaviour
     public Sprite EmptySlotImage;
     public Sprite PinkSlimeSlotImage;
     public Sprite RockSlimeSlotImage;
- 
+    public Slider ManaSlider;
+    public float Mana = 100;
+    public float MaxMana = 100;
+    public Text ManaText;
+    private BeatrixController beatrixController;
+    private bool canRegenMana = true;
+
     // 0 = empty, 1 = pinkslime, 2 = tabbyslime, 3 = rockslime, 4 = phosphorslime, 5 = puddleslime, 6 = boomslime, 7 = honeyslime, 8 = hunterslime
     // 9 = luckyslime, 10 = goldslime, 11 = radslime, 12 = crystalslime, 13 = quantumslime, 14 = dervishslime, 15 = mosaicslime, 16 = tangleslime, 17 = fireslime
     // 18 = tactuslime, 19 = amberslime, 20 = iceslime, 21 = snowslime, 22 = saberslime, 23 = quicksilverslime, 24 = glitchslime, 25 = starslime, 26 = cloudslime
@@ -66,10 +72,21 @@ public class AttackManager : MonoBehaviour
         SlimeSlot2 = new SlimeSlot("empty", false, EmptySlotImage);
         SlimeSlot3 = new SlimeSlot("empty", false, EmptySlotImage);
         SlimeSlot4 = new SlimeSlot("empty", false, EmptySlotImage);
+        beatrixController = FindObjectOfType<BeatrixController>();
     }
 
     void Update()
     {
+        if (beatrixController.BeatrixHealth >= 70 && canRegenMana)
+        {
+            StartCoroutine("ManaRegen");
+        }
+        if (Mana >= MaxMana)
+        {
+            Mana = MaxMana;
+        }
+        ManaSlider.value = Mana / 100;
+        ManaText.text = Mana.ToString();
         SlimeSlot1Image.sprite = SlimeSlot1.imageSprite;
         SlimeSlot2Image.sprite = SlimeSlot2.imageSprite;
         SlimeSlot3Image.sprite = SlimeSlot3.imageSprite;
@@ -82,12 +99,14 @@ public class AttackManager : MonoBehaviour
         {
             if (canFireSlime) 
             {
-                if (SlimeSlot1.isSelected == true)
+                if (SlimeSlot1.isSelected == true && Mana >= 1)
                 {
                     if (SlimeSlot1.name == "pinkSlime")
                     {
                         canFireSlime = false;
                         Instantiate(pinkSlimeProjectile, projectileTransform.position, Quaternion.identity);
+                        Mana -= 1;
+                        canRegenMana = false;
                         StartCoroutine("ShootWait");
                     }
                 }
@@ -171,6 +190,21 @@ public class AttackManager : MonoBehaviour
         {
             yield return new WaitForSeconds(.6f);
             canFireSlime = true;
+        }
+        while (!canRegenMana)
+        {
+            yield return new WaitForSeconds(5f);
+            canRegenMana = true;
+        }
+    }
+    IEnumerator ManaRegen()
+    {
+        {
+            while (Mana <= MaxMana && beatrixController.BeatrixHealth >= 70 && canRegenMana)
+            {
+                yield return new WaitForSeconds(3f);
+                Mana += 1;
+            }
         }
     }
 }

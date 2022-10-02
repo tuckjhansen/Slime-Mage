@@ -25,10 +25,12 @@ public class BeatrixController : MonoBehaviour
     private bool touchingBench;
     public Vector3 currentLocation;
     public Image BeatrixRestImage;
+    private AttackManager attackManager;
 
     // start is called before first frame
     void Start(){
         BeaHealthText.text = BeatrixHealth.ToString();
+        attackManager = FindObjectOfType<AttackManager>();
     }
 
     // Update is called once per frame
@@ -64,6 +66,7 @@ public class BeatrixController : MonoBehaviour
             CamDead.enabled = true;
             canvasToTurnOff.enabled = false;
             DeadCanvas.enabled = true;
+            attackManager.Mana = attackManager.MaxMana;
             if (Input.GetButton("Activate"))
             {
                 BeatrixHealth = 100;
@@ -83,6 +86,7 @@ public class BeatrixController : MonoBehaviour
         if (touchingBench && Input.GetButton("Activate"))
         {
             BeatrixHealth = 100;
+            attackManager.Mana = attackManager.MaxMana;
             HealthSlider.value = HealthSlider.maxValue;
             lastSavedLocation = currentLocation;
             UpdateHealth();
