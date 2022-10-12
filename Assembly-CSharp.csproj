@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\portal1Script.cs" />
+    <Compile Include="Assets\Scripts\SignController.cs" />
     <Compile Include="Assets\Scripts\AttackManager.cs" />
     <Compile Include="Assets\Scripts\PinkSlime.cs" />
     <Compile Include="Assets\Scripts\KeyController.cs" />
@@ -64,8 +65,10 @@
     <Compile Include="Assets\Scripts\BeatrixController.cs" />
     <Compile Include="Assets\Scripts\QuantumBossController.cs" />
     <Compile Include="Assets\Scripts\reactorScript.cs" />
+    <Compile Include="Assets\Scripts\TarrBubble.cs" />
     <Compile Include="Assets\Scripts\BossDetectorScript.cs" />
     <Compile Include="Assets\Scripts\WingTarr.cs" />
+    <Compile Include="Assets\Scripts\QuantumBossTarrSpike.cs" />
     <Compile Include="Assets\Scripts\QuantumScript.cs" />
     <Compile Include="Assets\GeneralSprites\GameManager.cs" />
     <Compile Include="Assets\Scripts\RainbowTarrScript.cs" />
@@ -77,8 +80,11 @@
     <Compile Include="Assets\Scripts\EnterNewArea.cs" />
     <Compile Include="Assets\Scripts\OpenDoor.cs" />
     <Compile Include="Assets\Scripts\BabyTarr.cs" />
-    <Compile Include="Assets\Scripts\QuantumBossTarrSpike.cs" />
-    <Compile Include="Assets\SignController.cs" />
+    <Compile Include="Assets\Scripts\TarrSpear.cs" />
+    <Compile Include="Assets\Scripts\VolumeScript.cs" />
+    <Compile Include="Assets\Scripts\SaveFileController.cs" />
+    <Compile Include="Assets\Scripts\PauseMenuController.cs" />
+    <Compile Include="Assets\Scripts\SaveSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BeatrixController : MonoBehaviour 
+public class BeatrixController : MonoBehaviour
 {
     public BoxCollider2D boxCollider2D;
     private bool facingRight = true;
     private float moveDirection;
     public float BeatrixHealth;
+    public float MaxHealth = 100;
     public Text BeaHealthText;
     private bool TouchingSlimeSea = false;
     public Camera CamAlive;
@@ -26,11 +27,16 @@ public class BeatrixController : MonoBehaviour
     public Vector3 currentLocation;
     public Image BeatrixRestImage;
     private AttackManager attackManager;
+    private bool SavedBefore = false;
+    private bool Loadable = true;
+    private SaveSystem saveSystem;
 
     // start is called before first frame
-    void Start(){
+    void Start()
+    {
         BeaHealthText.text = BeatrixHealth.ToString();
         attackManager = FindObjectOfType<AttackManager>();
+        saveSystem = FindObjectOfType<SaveSystem>();
     }
 
     // Update is called once per frame
@@ -49,7 +55,7 @@ public class BeatrixController : MonoBehaviour
             Flip();
         }
 
-        if (Input.GetButton("Jump") && IsGrounded()) 
+        if (Input.GetButton("Jump") && IsGrounded())
         {
             transform.Translate(0f, 14.55f * Time.deltaTime, 0f);
         }
@@ -92,6 +98,10 @@ public class BeatrixController : MonoBehaviour
             UpdateHealth();
             BeatrixRestImage.enabled = true;
             StartCoroutine("RestImageOffTimer");
+            if (!SavedBefore)
+            {
+                SaveDataFunction();
+            }
         }
     }
 
@@ -206,5 +216,18 @@ public class BeatrixController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         RestImageOff();
     }
+    public void SaveDataFunction()
+    {
+        if (!SavedBefore)
+        {
+            SaveSystem.Save();
+            SavedBefore = true;
+            StartCoroutine("SaveWait");
+        }
+    }
+    IEnumerator SaveWait()
+    {
+        yield return new WaitForSeconds(10f);
+        SavedBefore = false;
+    }
 }
-

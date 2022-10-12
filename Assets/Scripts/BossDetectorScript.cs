@@ -10,10 +10,13 @@ public class BossDetectorScript : MonoBehaviour
     private QuantumBossController quantumBossController;
     public bool Activated = false;
     public GameObject QuantumBoss;
+    private BeatrixController beatrixController;
+    public bool QuantumBossDead = false;
 
     void Start()
     {
         quantumBossController = Boss.GetComponent<QuantumBossController>();
+        beatrixController = FindObjectOfType<BeatrixController>();
     }
 
     void Update()
@@ -22,6 +25,14 @@ public class BossDetectorScript : MonoBehaviour
         {
             TrapDoor1.gravityScale = -1;
             TrapDoor2.gravityScale = -1;
+            QuantumBossDead = true;
+        }
+        if (beatrixController.BeatrixHealth <= 0)
+        {
+            Boss.SetActive(false);
+            TrapDoor1.gravityScale = -1;
+            TrapDoor2.gravityScale = -1;
+            Activated = false;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +43,7 @@ public class BossDetectorScript : MonoBehaviour
             TrapDoor1.gravityScale = 1;
             TrapDoor2.gravityScale = 1;
             Activated = true;
+            quantumBossController.Attacking = false;
         }
     }
 }
