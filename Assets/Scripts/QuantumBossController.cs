@@ -45,7 +45,6 @@ public class QuantumBossController : MonoBehaviour
         {
             gameObject.SetActive(false);
             Health = 0;
-            QuantumBossTarrBubble.SetActive(false);
         }
         if (beatrixController.BeatrixHealth <= 0)
         {

@@ -30,13 +30,15 @@ public class BeatrixController : MonoBehaviour
     private bool SavedBefore = false;
     private bool Loadable = true;
     private SaveSystem saveSystem;
-
+    private GameData gameData;
+    
     // start is called before first frame
     void Start()
     {
         BeaHealthText.text = BeatrixHealth.ToString();
         attackManager = FindObjectOfType<AttackManager>();
         saveSystem = FindObjectOfType<SaveSystem>();
+        gameData = FindObjectOfType<GameData>();
     }
 
     // Update is called once per frame
@@ -91,7 +93,7 @@ public class BeatrixController : MonoBehaviour
         }
         if (touchingBench && Input.GetButton("Activate"))
         {
-            BeatrixHealth = 100;
+            BeatrixHealth = MaxHealth;
             attackManager.Mana = attackManager.MaxMana;
             HealthSlider.value = HealthSlider.maxValue;
             lastSavedLocation = currentLocation;
@@ -220,14 +222,16 @@ public class BeatrixController : MonoBehaviour
     {
         if (!SavedBefore)
         {
-            SaveSystem.Save();
+            gameData.GameDataVarSetter();
+            saveSystem.ReadyToSave = true;
             SavedBefore = true;
             StartCoroutine("SaveWait");
         }
     }
+    
     IEnumerator SaveWait()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         SavedBefore = false;
     }
 }

@@ -2,46 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System.Xml.Serialization;
-using System.Xml;
 
-public class SaveSystem /* : MonoBehaviour*/
+public class SaveSystem : MonoBehaviour
 {
-    public static void Save()
+    public bool ReadyToSave = false;
+    public bool ReadyToLoad = false;
+    private string SavePath;
+
+    private void Start()
     {
-        string dataPath = Application.persistentDataPath + "/GameSave1.sav";
-        var serializer = new XmlSerializer(typeof(GameData));
-        var stream = new FileStream(dataPath, FileMode.OpenOrCreate);
-        serializer.Serialize(stream, dataPath);
-        stream.Close();
-        Debug.Log("Saved");
+        SavePath = Application.persistentDataPath + "/GameSave1.Json";
+    }
+    public void Saving()
+    {
+        var gameData = FindObjectOfType<GameData>();
+        string Json = JsonUtility.ToJson(gameData);
+        if (File.Exists(SavePath))
+        {
+            File.WriteAllText(SavePath, Json);
+            Debug.Log("Saved");
+        }
+
+        if (!File.Exists(SavePath))
+        {
+            File.Create(SavePath);
+            File.WriteAllText(SavePath, Json);
+            Debug.Log("Save File 1 did not exist");
+        }
+        ReadyToSave = false;
+    }
+    public void Loading()
+    {
+        GameData gameData = FindObjectOfType<GameData>();
+        BeatrixController beatrixController = FindObjectOfType<BeatrixController>();
+        AttackManager attackManager = FindObjectOfType<AttackManager>();
+        BossDetectorScript bossDetectorScript = FindObjectOfType<BossDetectorScript>();
+        if (File.Exists(SavePath))
+        {
+            string SaveData = File.ReadAllText(SavePath);
+            GameData LoadData = JsonUtility.FromJson<GameData>(SaveData);
+            beatrixController.MaxHealth = LoadData.MaxHealth;
+            attackManager.MaxMana = LoadData.MaxMana;
+            beatrixController.lastSavedLocation[0] = LoadData.LastSavedPosition[0];
+            beatrixController.lastSavedLocation[1] = LoadData.LastSavedPosition[1];
+            beatrixController.lastSavedLocation[2] = LoadData.LastSavedPosition[2];
+            bossDetectorScript.QuantumBossDead = LoadData.QuantumBossDead;
+        }
+        ReadyToLoad = false;
+    }
+    void Update()
+    {
+        if (ReadyToSave)
+        {
+            Saving();
+        }
+        if (ReadyToLoad)
+        {
+            Loading();
+        }
     }
 }
-
-[System.Serializable]
-public class GameData : MonoBehaviour
-{
-    private BeatrixController beatrixController;
-    private AttackManager attackManager;
-    private BossDetectorScript bossDetectorScript;
-    public float MaxHealth;
-    public float MaxMana;
-    public float[] LastSavedPosition;
-    public bool QuantumBossDead;
-
-    void Start()
-    {
-        beatrixController = FindObjectOfType<BeatrixController>();
-        attackManager = FindObjectOfType<AttackManager>();
-        bossDetectorScript = FindObjectOfType<BossDetectorScript>();
-        MaxHealth = beatrixController.MaxHealth;
-        MaxMana = attackManager.MaxMana;
-        LastSavedPosition = new float[3];
-        LastSavedPosition[0] = beatrixController.lastSavedLocation[0];
-        LastSavedPosition[2] = beatrixController.lastSavedLocation[2];
-        LastSavedPosition[3] = beatrixController.lastSavedLocation[3];
-        QuantumBossDead = bossDetectorScript.QuantumBossDead;
-    }
-}
-
-
