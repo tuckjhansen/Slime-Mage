@@ -17539,7 +17539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.9, y: -134.8, z: -10}
+  m_LocalPosition: {x: -5.66, y: 6.9018, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -17660,7 +17660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414f0fa8780a464293596fa9520750d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameDataCalled: 0
   MaxHealth: 0
   MaxMana: 0
   LastSavedPosition: []
@@ -45917,7 +45916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714075274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.9, y: -134.8, z: -10}
+  m_LocalPosition: {x: -5.66, y: 6.9018, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 371592275}
@@ -60115,6 +60114,7 @@ MonoBehaviour:
   lastSavedLocation: {x: -5.66, y: 6.9018, z: 0}
   currentLocation: {x: 0, y: 0, z: 0}
   BeatrixRestImage: {fileID: 1701993196}
+  LoadGame: 0
 --- !u!212 &2124341127
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -60174,7 +60174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124341123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.9, y: -134.8, z: 0}
+  m_LocalPosition: {x: -5.66, y: 6.9018, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 1675453576}

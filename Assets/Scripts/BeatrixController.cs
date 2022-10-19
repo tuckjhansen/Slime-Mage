@@ -31,6 +31,7 @@ public class BeatrixController : MonoBehaviour
     private bool Loadable = true;
     private SaveSystem saveSystem;
     private GameData gameData;
+    public bool LoadGame = false;
     
     // start is called before first frame
     void Start()
@@ -44,6 +45,13 @@ public class BeatrixController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LoadGame)
+        {
+            LoadGame = false;
+            saveSystem.Loading();
+            BeatrixHealth = MaxHealth;
+            transform.position = lastSavedLocation;
+        }
         currentLocation = new Vector3(beatrixPosition.position.x, beatrixPosition.position.y);
         BeaHealthText.text = BeatrixHealth.ToString();
         transform.Translate(Input.GetAxis("Move") * 10f * Time.deltaTime, 0f, 0f);
@@ -104,6 +112,10 @@ public class BeatrixController : MonoBehaviour
             {
                 SaveDataFunction();
             }
+        }
+        if (LoadGame) 
+        {
+            saveSystem.Loading();
         }
     }
 

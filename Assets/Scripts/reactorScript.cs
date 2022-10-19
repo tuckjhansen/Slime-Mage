@@ -13,6 +13,7 @@ public class reactorScript : MonoBehaviour
     public GameObject Portal2;
     private portal1Script PortalRuinsScript;
     private portal1Script PortalDesertScript;
+    private bool NotActivatedYet = true;
     
     void Start()
     {
@@ -25,7 +26,7 @@ public class reactorScript : MonoBehaviour
 
     void Update()
     {
-        if (enteredReactor && Input.GetButton("Activate") && !Activated)
+        if (enteredReactor && Input.GetButton("Activate") && !Activated || Activated && NotActivatedYet)
         {
             myAnimator.SetTrigger("ReactorActivated");
             portalAnimator.SetTrigger("PortalActivated");
@@ -33,6 +34,7 @@ public class reactorScript : MonoBehaviour
             Activated = true;
             PortalRuinsScript.activated = true;
             PortalDesertScript.activated = true;
+            NotActivatedYet = false;
         }
     }
     void OnTriggerEnter2D(Collider2D collision)

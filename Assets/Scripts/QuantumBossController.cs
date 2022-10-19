@@ -58,9 +58,9 @@ public class QuantumBossController : MonoBehaviour
             QuantumSpikeBallNumLimit = 0;
             transform.position = RespawnPoint;
         }
-        if (Activated == false && Idle)
+        if (!Activated && Idle)
         {
-            NextAttack = Random.Range(0, 100);
+            NextAttack = Random.Range(1, 100);
             Idle = false;
         }
         if (NextAttack >= 1 && NextAttack <= 25 && !Attacking && !Idle)
@@ -135,7 +135,7 @@ public class QuantumBossController : MonoBehaviour
         while (Attack1)
         {
             yield return new WaitForSeconds(Random.Range(2, 8));
-            NextAttack = Random.Range(0, 100);
+            NextAttack = Random.Range(1, 100);
             Attacking = false;
         }
     }
@@ -144,7 +144,7 @@ public class QuantumBossController : MonoBehaviour
         while (Attack2)
         {
             yield return new WaitForSeconds(2f);
-            NextAttack = Random.Range(0, 100);
+            NextAttack = Random.Range(1, 100);
             Attacking = false;
         }
     }
@@ -153,7 +153,7 @@ public class QuantumBossController : MonoBehaviour
         while (Attack3)
         {
             yield return new WaitForSeconds(4f);
-            NextAttack = Random.Range(0, 100);
+            NextAttack = Random.Range(1, 100);
             Attacking = false;
         }
     }
@@ -167,7 +167,7 @@ public class QuantumBossController : MonoBehaviour
         while (Attack4)
         {
             yield return new WaitForSeconds(.5f);
-            NextAttack = Random.Range(0, 100);
+            NextAttack = Random.Range(1, 100);
             Attacking = false;
         }
     }

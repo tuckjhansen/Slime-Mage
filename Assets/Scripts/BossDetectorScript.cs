@@ -37,7 +37,7 @@ public class BossDetectorScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "player" && !Activated)
+        if (collision.tag == "player" && !Activated && !QuantumBossDead)
         {
             Boss.SetActive(true);
             TrapDoor1.gravityScale = 1;

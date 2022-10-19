@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+     
 public class SaveSystem : MonoBehaviour
 {
     public bool ReadyToSave = false;
-    public bool ReadyToLoad = false;
     private string SavePath;
+    private BeatrixController beatrixController;
+    private AttackManager attackManager;
+    private BossDetectorScript bossDetectorScript;
 
     private void Start()
     {
@@ -20,35 +22,32 @@ public class SaveSystem : MonoBehaviour
         if (File.Exists(SavePath))
         {
             File.WriteAllText(SavePath, Json);
-            Debug.Log("Saved");
         }
 
         if (!File.Exists(SavePath))
         {
             File.Create(SavePath);
             File.WriteAllText(SavePath, Json);
-            Debug.Log("Save File 1 did not exist");
         }
         ReadyToSave = false;
     }
     public void Loading()
     {
         GameData gameData = FindObjectOfType<GameData>();
-        BeatrixController beatrixController = FindObjectOfType<BeatrixController>();
-        AttackManager attackManager = FindObjectOfType<AttackManager>();
-        BossDetectorScript bossDetectorScript = FindObjectOfType<BossDetectorScript>();
+        beatrixController = FindObjectOfType<BeatrixController>();
+        attackManager = FindObjectOfType<AttackManager>();
+        bossDetectorScript = FindObjectOfType<BossDetectorScript>();
         if (File.Exists(SavePath))
         {
-            string SaveData = File.ReadAllText(SavePath);
-            GameData LoadData = JsonUtility.FromJson<GameData>(SaveData);
-            beatrixController.MaxHealth = LoadData.MaxHealth;
-            attackManager.MaxMana = LoadData.MaxMana;
-            beatrixController.lastSavedLocation[0] = LoadData.LastSavedPosition[0];
-            beatrixController.lastSavedLocation[1] = LoadData.LastSavedPosition[1];
-            beatrixController.lastSavedLocation[2] = LoadData.LastSavedPosition[2];
-            bossDetectorScript.QuantumBossDead = LoadData.QuantumBossDead;
+            string saveData = File.ReadAllText(SavePath);
+            SaveObject saveObject = JsonUtility.FromJson<SaveObject>(saveData);
+            beatrixController.MaxHealth = saveObject.MaxHealth;
+            attackManager.MaxMana = saveObject.MaxMana;
+            beatrixController.lastSavedLocation[0] = saveObject.LastSavedPosition[0];
+            beatrixController.lastSavedLocation[1] = saveObject.LastSavedPosition[1];
+            beatrixController.lastSavedLocation[2] = saveObject.LastSavedPosition[2];
+            bossDetectorScript.QuantumBossDead = saveObject.QuantumBossDead;
         }
-        ReadyToLoad = false;
     }
     void Update()
     {
@@ -56,9 +55,13 @@ public class SaveSystem : MonoBehaviour
         {
             Saving();
         }
-        if (ReadyToLoad)
-        {
-            Loading();
-        }
+    }
+    
+    private class SaveObject
+    {
+        public float MaxHealth;
+        public float MaxMana;
+        public float[] LastSavedPosition;
+        public bool QuantumBossDead;
     }
 }

@@ -935,7 +935,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReadyToSave: 0
-  ReadyToLoad: 0
 --- !u!1 &388399620
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,6 +2538,7 @@ MonoBehaviour:
   SaveMenu: {fileID: 0}
   ContinueText: {fileID: 388399622}
   ContinueButton: {fileID: 0}
+  MainMenuCanvas: {fileID: 157520117}
 --- !u!1 &1971947508
 GameObject:
   m_ObjectHideFlags: 0

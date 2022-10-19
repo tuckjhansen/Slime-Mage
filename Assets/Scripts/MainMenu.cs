@@ -13,10 +13,11 @@ public class MainMenu : MonoBehaviour
     private SaveSystem saveSystem;
     public Text ContinueText;
     public Button ContinueButton;
+    private BeatrixController beatrixController;
+    public GameObject MainMenuCanvas;
 
     private void Start()
     {
-        saveSystem = FindObjectOfType<SaveSystem>();
         if (!File.Exists(Application.persistentDataPath + "/GameSave1.Json"))
         {
             ContinueText.color = Color.gray;
@@ -32,13 +33,21 @@ public class MainMenu : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/GameSave1.Json"))
         {
+            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(MainMenuCanvas);
             SceneManager.LoadScene("Game");
-            saveSystem.ReadyToLoad = true;
+            StartCoroutine("LoadWait");
         }
     }
     public void QuitGame()
     {
         Application.Quit();
+    }
+    IEnumerator LoadWait()
+    {
+        yield return new WaitForSeconds(1);
+        beatrixController = FindObjectOfType<BeatrixController>();
+        beatrixController.LoadGame = true;
     }
 }
 
