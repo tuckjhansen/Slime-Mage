@@ -9,7 +9,6 @@ public class BabyTarr : MonoBehaviour
     public GameObject groundCheck;
     private SpriteRenderer tarrSpriteRenderer;
     public EdgeCollider2D tarrCollider1;
-    public BoxCollider2D tarrCollider2;
     public LayerMask groundLayer;
     public bool facingRight;
     public bool isGrounded;
@@ -18,11 +17,10 @@ public class BabyTarr : MonoBehaviour
     private int babyTarrHealth = 10;
     private BeatrixController BeatrixController;
     private Vector3 respawnPoint;
-
+    private bool deadBefore = false;
     void Start()
     {
         tarrCollider1 = GetComponent<EdgeCollider2D>();
-        tarrCollider2 = GetComponent<BoxCollider2D>();
         tarrSpriteRenderer = GetComponent<SpriteRenderer>();
         BeatrixController = FindObjectOfType<BeatrixController>();
         respawnPoint = new Vector3(transform.position.x, transform.position.y);
@@ -35,9 +33,9 @@ public class BabyTarr : MonoBehaviour
             babyTarrHealth = 10;
             tarrSpriteRenderer.enabled = true;
             tarrCollider1.enabled = true;
-            tarrCollider2.enabled = true;
             transform.position = respawnPoint;
             tarrSpriteRenderer.color = Color.white;
+            deadBefore = false;
         }
         StartCoroutine("LoadWait");
         if (Loaded)
@@ -58,7 +56,11 @@ public class BabyTarr : MonoBehaviour
             babyTarrHealth = 0;
             tarrSpriteRenderer.enabled = false;
             tarrCollider1.enabled = false;
-            tarrCollider2.enabled = false;
+        }
+        if (babyTarrHealth == 0 && !deadBefore)
+        {
+            deadBefore = true;
+            BeatrixController.money += Random.Range(2, 3);
         }
     }
 
@@ -75,7 +77,7 @@ public class BabyTarr : MonoBehaviour
     }
     IEnumerator LoadWait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.6f);
         SettingLoadedToTrue();
     }
     void SettingLoadedToTrue()

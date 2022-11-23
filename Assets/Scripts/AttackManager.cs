@@ -61,6 +61,14 @@ public class AttackManager : MonoBehaviour
     public Text ManaText;
     private BeatrixController beatrixController;
     private bool canRegenMana = true;
+    private bool attacking = false;
+    public bool touchingQuantumGiver = false;
+    public Sprite quantumSlotSprite;
+    private bool slowTime = false;
+    public Text timeSpeedText;
+    public Image timeSpeedBackground;
+    public GameObject quantumField;
+    public bool hasQuantumSlime = false;
 
     // 0 = empty, 1 = pinkslime, 2 = tabbyslime, 3 = rockslime, 4 = phosphorslime, 5 = puddleslime, 6 = boomslime, 7 = honeyslime, 8 = hunterslime
     // 9 = luckyslime, 10 = goldslime, 11 = radslime, 12 = crystalslime, 13 = quantumslime, 14 = dervishslime, 15 = mosaicslime, 16 = tangleslime, 17 = fireslime
@@ -77,9 +85,45 @@ public class AttackManager : MonoBehaviour
 
     void Update()
     {
+        if (slowTime)
+        {
+            Time.timeScale = .6f;
+            timeSpeedText.text = "Time Speed: " + Time.timeScale * 100 + "%";
+        }
+        if (!slowTime)
+        {
+            Time.timeScale = 1f;
+            beatrixController.speed = 1;
+            timeSpeedText.text = "Time Speed: " + Time.timeScale * 100 + "%";
+        }
+        if (touchingQuantumGiver && Input.GetButton("Activate"))
+        {
+            if (SlimeSlot2.name == "empty")
+            {
+                SlimeSlot2.name = "quantumSlime";
+                SlimeSlot2.imageSprite = quantumSlotSprite;
+                SlimeSlot2RectTransform.localScale = new Vector2(10f, 10f);
+                timeSpeedText.enabled = true;
+                timeSpeedBackground.enabled = true;
+                hasQuantumSlime = true;
+            }
+        }
+        if (SlimeSlot2.name == "empty" && hasQuantumSlime)
+        {
+            SlimeSlot2.name = "quantumSlime";
+            SlimeSlot2.imageSprite = quantumSlotSprite;
+            SlimeSlot2RectTransform.localScale = new Vector2(10f, 10f);
+            timeSpeedText.enabled = true;
+            timeSpeedBackground.enabled = true;
+            hasQuantumSlime = true;
+        }
+        mousePos.x += Input.GetAxis("Mouse X");
+        mousePos.y += Input.GetAxis("Mouse Y");
         if (beatrixController.BeatrixHealth >= 70 && canRegenMana)
         {
             StartCoroutine("ManaRegen");
+            /*canRegenMana = false;*/
+            
         }
         if (Mana >= MaxMana)
         {
@@ -97,9 +141,9 @@ public class AttackManager : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
         if (Input.GetButton("Attack"))
         {
-            if (canFireSlime) 
+            if (canFireSlime && Mana >= 1)
             {
-                if (SlimeSlot1.isSelected == true && Mana >= 1)
+                if (SlimeSlot1.isSelected)
                 {
                     if (SlimeSlot1.name == "pinkSlime")
                     {
@@ -107,11 +151,26 @@ public class AttackManager : MonoBehaviour
                         Instantiate(pinkSlimeProjectile, projectileTransform.position, Quaternion.identity);
                         Mana -= 1;
                         canRegenMana = false;
+                        attacking = true;
                         StartCoroutine("ShootWait");
                     }
                 }
+                if (SlimeSlot2.isSelected)
+                {
+                    if (SlimeSlot2.name == "quantumSlime" && Mana >= 30)
+                    {
+                        canFireSlime = false;
+                        Mana -= 30;
+                        slowTime = true;
+                        beatrixController.speed = 2;
+                        canRegenMana = false;
+                        attacking = true;
+                        StartCoroutine("ShootWait");
+                        StartCoroutine("quantumTimer");
+                        Instantiate(quantumField, transform.position, transform.rotation);
+                    }
+                }
             }
-            
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
@@ -191,20 +250,31 @@ public class AttackManager : MonoBehaviour
             yield return new WaitForSeconds(.6f);
             canFireSlime = true;
         }
-        while (!canRegenMana)
+        while (!canRegenMana && !attacking)
         {
             yield return new WaitForSeconds(5f);
             canRegenMana = true;
         }
+        while (attacking)
+        {
+            yield return new WaitForSeconds(5f);
+            attacking = false;
+        }
+        
     }
     IEnumerator ManaRegen()
     {
         {
             while (Mana <= MaxMana && beatrixController.BeatrixHealth >= 70 && canRegenMana)
             {
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(.5f);
                 Mana += 1;
             }
         }
+    }
+    IEnumerator quantumTimer()
+    {
+        yield return new WaitForSeconds(3.5f);
+        slowTime = false;
     }
 }

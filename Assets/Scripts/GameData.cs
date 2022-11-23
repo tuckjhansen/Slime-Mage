@@ -7,19 +7,15 @@ public class GameData : MonoBehaviour
     private AttackManager attackManager;
     private BossDetectorScript bossDetectorScript;
     private reactorScript reactorController;
-    private SignController signController1;
-    private SignController signController2;
-    private SignController signController3;
+    private KeyController keyController;
     public float MaxHealth;
     public float MaxMana;
     public float[] LastSavedPosition;
     public bool QuantumBossDead;
-    public int MusicVolume;
-    public bool Lore1Read;
-    public bool Lore2Read;
-    public bool Lore3Read;
     public bool ReactorActivated;
-    
+    public bool QuantumDoorOpened;
+    public float money;
+    public bool quantumSlimePower;
 
     public void GameDataVarSetter()
     {
@@ -27,7 +23,7 @@ public class GameData : MonoBehaviour
         attackManager = FindObjectOfType<AttackManager>();
         bossDetectorScript = FindObjectOfType<BossDetectorScript>();
         reactorController = FindObjectOfType<reactorScript>();
-        signController1 = FindObjectOfType<GameObject>().GetComponent<SignController>();
+        keyController = FindObjectOfType<KeyController>();
 
         MaxHealth = beatrixController.MaxHealth;
         MaxMana = attackManager.MaxMana;
@@ -37,6 +33,9 @@ public class GameData : MonoBehaviour
         LastSavedPosition[2] = beatrixController.lastSavedLocation[2];
         QuantumBossDead = bossDetectorScript.QuantumBossDead;
         ReactorActivated = reactorController.Activated;
+        QuantumDoorOpened = keyController.Opened;
+        money = beatrixController.money;
+        quantumSlimePower = attackManager.hasQuantumSlime;
     }
 }
 

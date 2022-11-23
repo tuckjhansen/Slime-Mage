@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class QuantumBossController : MonoBehaviour
 {
-    public float Health = 300;
+    public float Health = 200;
     private SpriteRenderer BossRenderer;
     private BoxCollider2D BossCollider;
     private bool Activated = false;
@@ -26,6 +26,7 @@ public class QuantumBossController : MonoBehaviour
     public GameObject QuantumSpikeBall;
     public float QuantumSpikeBallNumLimit;
     private Vector2 RespawnPoint;
+    private bool deadBefore = false;
 
     void Start()
     {
@@ -46,16 +47,19 @@ public class QuantumBossController : MonoBehaviour
             gameObject.SetActive(false);
             Health = 0;
         }
+        if (Health <= 0 && !deadBefore)
+        {
+            deadBefore = true;
+            beatrixController.money += 20;
+        }
         if (beatrixController.BeatrixHealth <= 0)
         {
             Activated = false;
             Attacking = false;
             NextAttack = 0;
             Idle = true;
-            Health = 300;
+            Health = 200;
             bossDetectorScript.Activated = false;
-            TarrBubbleNum = 0;
-            QuantumSpikeBallNumLimit = 0;
             transform.position = RespawnPoint;
         }
         if (!Activated && Idle)
@@ -75,7 +79,7 @@ public class QuantumBossController : MonoBehaviour
             Attack4 = false;
             StartCoroutine("Wait2");
         }
-        if (NextAttack >= 26 && NextAttack <= 50 && !Attacking && !Idle && TarrBubbleNum <= 6)
+        if (NextAttack >= 26 && NextAttack <= 50 && !Attacking && !Idle && TarrBubbleNum <= 5)
         {
             Attack1 = false;
             Attack2 = true;
@@ -100,7 +104,7 @@ public class QuantumBossController : MonoBehaviour
             StartCoroutine("Wait4");
             StartCoroutine("Wait5");
         }
-        if (NextAttack >= 76 && NextAttack <= 100 && !Attacking && !Idle && QuantumSpikeBallNumLimit <= 2)
+        if (NextAttack >= 76 && NextAttack <= 100 && !Attacking && !Idle && QuantumSpikeBallNumLimit <= 1)
         {
             Attack1 = false;
             Attack2 = false;

@@ -7,7 +7,7 @@ public class PinkSlime : MonoBehaviour
     private Camera mainCam;
     private Vector3 mousePos;
     public Rigidbody2D rb;
-    private float Speed = 12f;
+    public float Speed = 12f;
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -23,7 +23,7 @@ public class PinkSlime : MonoBehaviour
 
     IEnumerator WaitForDeath()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(4f); // 4 is standard
         DestroyImmediate(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)

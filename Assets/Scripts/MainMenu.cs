@@ -9,8 +9,6 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject MainMenuObject;
     public GameObject OptionsMenu;
-    public GameObject SaveMenu;
-    private SaveSystem saveSystem;
     public Text ContinueText;
     public Button ContinueButton;
     private BeatrixController beatrixController;
@@ -45,9 +43,10 @@ public class MainMenu : MonoBehaviour
     }
     IEnumerator LoadWait()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.05f);
         beatrixController = FindObjectOfType<BeatrixController>();
         beatrixController.LoadGame = true;
+        Destroy(MainMenuCanvas);
     }
-}
+} 
 

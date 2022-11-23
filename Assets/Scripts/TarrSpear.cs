@@ -28,6 +28,7 @@ public class TarrSpear : MonoBehaviour
         attackMoveDirection.Normalize();
         rb = GetComponent<Rigidbody2D>();
         quantumBossController = FindObjectOfType<QuantumBossController>();
+        StartCoroutine("lifeTimer");
     }
     void Update()
     {
@@ -72,5 +73,10 @@ public class TarrSpear : MonoBehaviour
         {
             Health -= 5;
         }
+    }
+    IEnumerator lifeTimer()
+    {
+        yield return new WaitForSeconds(5f);
+        Health = 0;
     }
 }

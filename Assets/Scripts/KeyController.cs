@@ -10,11 +10,9 @@ public class KeyController : MonoBehaviour
     public BoxCollider2D QuantumGateCollider;
     public SpriteRenderer QuantumGateRenderer;
     private bool touchingQuantumGate = false;
-
-    void Start()
-    {
-        
-    }
+    public bool Opened = false;
+    private bool OpenedBefore = false;
+    public Image quantumKeyImage;
 
     void Update()
     {
@@ -24,8 +22,18 @@ public class KeyController : MonoBehaviour
             {
                 QuantumGateAnimator.SetTrigger("UseQuantumSlimeKey");
                 QuantumKeyHeld = false;
+                quantumKeyImage.enabled = false;
+                Opened = true;
                 StartCoroutine("TurnOffSlimeGateRenderer");
             }
+        }
+        if (Opened && !OpenedBefore)
+        {
+            QuantumGateAnimator.SetTrigger("UseQuantumSlimeKey");
+            QuantumKeyHeld = false;
+            quantumKeyImage.enabled = false;
+            OpenedBefore = true;
+            StartCoroutine("TurnOffSlimeGateRenderer");
         }
     }
 
@@ -37,7 +45,7 @@ public class KeyController : MonoBehaviour
             {
                 KeyCollider.gameObject.SetActive(false);
                 QuantumKeyHeld = true;
-
+                quantumKeyImage.enabled = true;
 
             }
         }
@@ -47,7 +55,6 @@ public class KeyController : MonoBehaviour
             {
                 if (QuantumKeyHeld)
                 {
-                    
                     touchingQuantumGate = true;
                 }
             }

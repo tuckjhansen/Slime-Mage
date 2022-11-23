@@ -10,6 +10,8 @@ public class SaveSystem : MonoBehaviour
     private BeatrixController beatrixController;
     private AttackManager attackManager;
     private BossDetectorScript bossDetectorScript;
+    private reactorScript reactorController;
+    private KeyController keyController;
 
     private void Start()
     {
@@ -37,6 +39,8 @@ public class SaveSystem : MonoBehaviour
         beatrixController = FindObjectOfType<BeatrixController>();
         attackManager = FindObjectOfType<AttackManager>();
         bossDetectorScript = FindObjectOfType<BossDetectorScript>();
+        reactorController = FindObjectOfType<reactorScript>();
+        keyController = FindObjectOfType<KeyController>();
         if (File.Exists(SavePath))
         {
             string saveData = File.ReadAllText(SavePath);
@@ -47,6 +51,10 @@ public class SaveSystem : MonoBehaviour
             beatrixController.lastSavedLocation[1] = saveObject.LastSavedPosition[1];
             beatrixController.lastSavedLocation[2] = saveObject.LastSavedPosition[2];
             bossDetectorScript.QuantumBossDead = saveObject.QuantumBossDead;
+            reactorController.Activated = saveObject.ReactorActivated;
+            keyController.Opened = saveObject.QuantumDoorOpened;
+            beatrixController.money = saveObject.money;
+            attackManager.hasQuantumSlime = saveObject.quantumSlimePower;
         }
     }
     void Update()
@@ -57,11 +65,16 @@ public class SaveSystem : MonoBehaviour
         }
     }
     
+    
     private class SaveObject
     {
         public float MaxHealth;
         public float MaxMana;
         public float[] LastSavedPosition;
         public bool QuantumBossDead;
+        public bool ReactorActivated;
+        public bool QuantumDoorOpened;
+        public float money;
+        public bool quantumSlimePower;
     }
 }

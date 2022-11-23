@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuController : MonoBehaviour
 {
     private bool Paused = false;
-    private Canvas MenuCanvas;
+    public Canvas MenuCanvas;
     private BeatrixController beatrixController;
     private AttackManager attackManager;
     public GameObject PauseMenu;
@@ -15,7 +15,6 @@ public class PauseMenuController : MonoBehaviour
 
     void Start()
     {
-        MenuCanvas = FindObjectOfType<Canvas>();
         beatrixController = FindObjectOfType<BeatrixController>();
         attackManager = FindObjectOfType<AttackManager>();
     }

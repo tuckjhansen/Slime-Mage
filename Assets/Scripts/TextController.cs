@@ -7,7 +7,9 @@ public class TextController : MonoBehaviour
 {
     public Text pushActivateButtonText;
     public Text pushRestBenchButtonText;
+    public Text pushRestBenchButtonText2;
     public Text pushToPlayWhenDeadText;
+    public Text enterWindTowerText;
     private int xboxOneController = 0;
 
     void Update()
@@ -33,12 +35,16 @@ public class TextController : MonoBehaviour
             pushActivateButtonText.text = "Push Y to Activate";
             pushRestBenchButtonText.text = "Push Y to Rest";
             pushToPlayWhenDeadText.text = "Push Y to Play";
+            pushRestBenchButtonText2.text = "Push Y to Rest";
+            enterWindTowerText.text = "Push Y to Enter";
         }
         if (xboxOneController <= 0)
         {
-            pushActivateButtonText.text = "Push S to Activate";
-            pushRestBenchButtonText.text = "Push S to Rest";
-            pushToPlayWhenDeadText.text = "Push S to Play";
+            pushActivateButtonText.text = "Push E to Activate";
+            pushRestBenchButtonText.text = "Push E to Rest";
+            pushToPlayWhenDeadText.text = "Push E to Play";
+            pushRestBenchButtonText2.text = "Push E to Rest";
+            enterWindTowerText.text = "Push E to Enter";
         }
     }
 }
