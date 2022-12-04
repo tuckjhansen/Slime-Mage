@@ -7,6 +7,8 @@ public class EnterNewArea : MonoBehaviour
 {
     public Image AreaSymbol;
     public Sprite UnstableReactorSymbol;
+    public Sprite glassDesertSymbol;
+    public Sprite windTowerSymbol;
     public Text AreaText;
 
     void Start()

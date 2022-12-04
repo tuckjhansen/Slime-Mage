@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
      
@@ -7,15 +5,19 @@ public class SaveSystem : MonoBehaviour
 {
     public bool ReadyToSave = false;
     private string SavePath;
+    private string SavePath2;
     private BeatrixController beatrixController;
     private AttackManager attackManager;
     private BossDetectorScript bossDetectorScript;
     private reactorScript reactorController;
     private KeyController keyController;
+    private bool playingGame1;
+    private bool playingGame2;
 
     private void Start()
     {
         SavePath = Application.persistentDataPath + "/GameSave1.Json";
+        SavePath2 = Application.persistentDataPath + "/GameSave2.Json";
     }
     public void Saving()
     {

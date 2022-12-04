@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
-    public void ContinueGame() 
+    public void ContinueGame1() 
     {
         if (File.Exists(Application.persistentDataPath + "/GameSave1.Json"))
         {
@@ -35,6 +35,20 @@ public class MainMenu : MonoBehaviour
             DontDestroyOnLoad(MainMenuCanvas);
             SceneManager.LoadScene("Game");
             StartCoroutine("LoadWait");
+            beatrixController.playingGameSave1 = true;
+            beatrixController.playingGameSave2 = false;
+        }
+    }
+    public void ContinueGame2()
+    {
+        if (File.Exists(Application.persistentDataPath + "/GameSave1.Json"))
+        {
+            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(MainMenuCanvas);
+            SceneManager.LoadScene("Game");
+            StartCoroutine("LoadWait");
+            beatrixController.playingGameSave2 = true;
+            beatrixController.playingGameSave1 = false;
         }
     }
     public void QuitGame()

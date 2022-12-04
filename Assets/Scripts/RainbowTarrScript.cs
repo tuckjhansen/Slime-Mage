@@ -57,9 +57,9 @@ public class RainbowTarrScript : MonoBehaviour
         if (BeatrixController.BeatrixHealth <= 0)
         {
             tarrhealth = maxHealht;
-            tarrSpriteRenderer.enabled = true;
             tarrCollider1.enabled = true;
             tarrCollider2.enabled = true;
+            tarrSpriteRenderer.enabled = true;
             gameObject.transform.position = respawnPoint;
             tarrSpriteRenderer.color = Color.white;
             loaded = false;

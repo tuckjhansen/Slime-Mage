@@ -39,6 +39,8 @@ public class BeatrixController : MonoBehaviour
     private Vector3 lastMiniSavedPosition;
     private bool touchingMiniSavePoint = false;
     private bool ableToGetHurtFromTarrSpikes = true;
+    public bool playingGameSave1;
+    public bool playingGameSave2;
     
     void Start()
     {
