@@ -57,6 +57,7 @@ public class SaveSystem : MonoBehaviour
             keyController.Opened = saveObject.QuantumDoorOpened;
             beatrixController.money = saveObject.money;
             attackManager.hasQuantumSlime = saveObject.quantumSlimePower;
+            beatrixController.haveDervishDash = saveObject.haveDervishDash;
         }
     }
     void Update()
@@ -78,5 +79,6 @@ public class SaveSystem : MonoBehaviour
         public bool QuantumDoorOpened;
         public float money;
         public bool quantumSlimePower;
+        public bool haveDervishDash;
     }
 }

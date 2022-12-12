@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class BeatrixController : MonoBehaviour
 {
@@ -41,17 +42,94 @@ public class BeatrixController : MonoBehaviour
     private bool ableToGetHurtFromTarrSpikes = true;
     public bool playingGameSave1;
     public bool playingGameSave2;
-    
+    public bool haveDervishDash;
+    private bool touchingDervishCore;
+    private bool canDash = true;
+    private bool dashing = false;
+    private float dashingPower = 24f;
+    private float dashingTime = .3f;
+    private float originalGravity;
+    private Rigidbody2D rb;
+    private bool dashWaitOver = true;
+    private bool JumpAble = true;
+    private bool SlowBeforeAfterDash = true;
+    public GameObject DervishDashFloor;
+    public GameObject DervishCore;
+    private bool ableToTakeDamageDash = true;
+    [SerializeField] private TrailRenderer dashTrailRenderer;
+
     void Start()
     {
         BeaHealthText.text = BeatrixHealth.ToString();
         attackManager = FindObjectOfType<AttackManager>();
         saveSystem = FindObjectOfType<SaveSystem>();
         gameData = FindObjectOfType<GameData>();
+        rb = GetComponent<Rigidbody2D>();
+        originalGravity = rb.gravityScale;
+        dashTrailRenderer = GetComponent<TrailRenderer>();
     }
 
-    void Update()
-    {
+    void Update() { 
+        if (Input.GetButton("MouseMoveX"))
+        {
+           
+
+        }
+        if (IsGrounded() && !dashing && dashWaitOver)
+        {
+            canDash = true;
+        }
+        else
+        {
+            canDash = false;
+        }
+        if (touchingDervishCore && Input.GetButton("Activate"))
+        {
+            haveDervishDash = true;
+            DervishDashFloor.SetActive(false);
+            DervishCore.SetActive(false);
+        }
+        if (!dashing)
+        {
+            if (!SlowBeforeAfterDash)
+            {
+                rb.velocity = new Vector2(0, 0);
+                SlowBeforeAfterDash = true;
+            }
+            rb.gravityScale = originalGravity;
+            JumpAble = true;
+            ableToTakeDamageDash = true;
+            dashTrailRenderer.enabled = false;
+        }
+        if ((haveDervishDash && Input.GetButton("Dash") && canDash) || (dashing && !dashWaitOver))
+        {
+            if (facingRight)
+            {
+                rb.gravityScale = 0;
+                dashWaitOver = false;
+                rb.velocity = new Vector2(1 * dashingPower, 0f);
+                dashing = true;
+                JumpAble = false;
+                SlowBeforeAfterDash = false;
+                ableToTakeDamageDash = false;
+                dashTrailRenderer.enabled = true;
+                StartCoroutine("dashTime");
+                StartCoroutine("Dashable");
+            }
+            if (!facingRight)
+            {
+                rb.gravityScale = 0;
+                rb.velocity = new Vector2(-1 * dashingPower, 0f);
+                dashWaitOver = false;
+                dashing = true;
+                JumpAble = false;
+                SlowBeforeAfterDash = false;
+                ableToTakeDamageDash = false;
+                dashTrailRenderer.enabled = true;
+                StartCoroutine("dashTime");
+                StartCoroutine("Dashable");
+            }
+        }
         if (touchingTarrSpikePlatform && ableToGetHurtFromTarrSpikes)
         {
             BeatrixHealth -= 10;
@@ -85,7 +163,7 @@ public class BeatrixController : MonoBehaviour
             Flip();
         }
 
-        if (Input.GetButton("Jump") && IsGrounded())
+        if (Input.GetButton("Jump") && IsGrounded() && JumpAble)
         {
             transform.Translate(0f, 14.55f * Time.deltaTime, 0f);
         }
@@ -181,6 +259,10 @@ public class BeatrixController : MonoBehaviour
         }
         if (colliderOfEnemiesAndBenches.tag == "SlimeGiver")
         {
+            if (colliderOfEnemiesAndBenches.gameObject.name == "DervishCore")
+            {
+                touchingDervishCore = true;
+            }
             if (colliderOfEnemiesAndBenches.gameObject.name == "QuantumSlimeGiver")
             {
                 attackManager.touchingQuantumGiver = true;
@@ -212,6 +294,10 @@ public class BeatrixController : MonoBehaviour
         }
         if (colliderOfEnemiesAndBenches.tag == "SlimeGiver")
         {
+            if (colliderOfEnemiesAndBenches.gameObject.name == "DervishCore")
+            {
+                touchingDervishCore = false;
+            }
             if (colliderOfEnemiesAndBenches.gameObject.name == "QuantumSlimeGiver")
             {
                 attackManager.touchingQuantumGiver = false;
@@ -238,7 +324,7 @@ public class BeatrixController : MonoBehaviour
     }
     void TouchTarr()
     {
-        if (hurtWaitOver == true)
+        if (hurtWaitOver && ableToTakeDamageDash)
         {
             BeatrixHealth -= 10;
             /*HealthSlider.value -= 0.1f;*/
@@ -300,5 +386,15 @@ public class BeatrixController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         ableToGetHurtFromTarrSpikes = true;
+    }
+    IEnumerator dashTime()
+    {
+        yield return new WaitForSeconds(dashingTime);
+        dashing = false;
+    }
+    IEnumerator Dashable()
+    {
+        yield return new WaitForSeconds(1f);
+        dashWaitOver = true;
     }
 }

@@ -16,6 +16,7 @@ public class GameData : MonoBehaviour
     public bool QuantumDoorOpened;
     public float money;
     public bool quantumSlimePower;
+    public bool haveDervishDash;
 
     public void GameDataVarSetter()
     {
@@ -36,6 +37,7 @@ public class GameData : MonoBehaviour
         QuantumDoorOpened = keyController.Opened;
         money = beatrixController.money;
         quantumSlimePower = attackManager.hasQuantumSlime;
+        haveDervishDash = beatrixController.haveDervishDash;
     }
 }
 

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2864569776129225870}
   - component: {fileID: 2864569776129225866}
   - component: {fileID: 2864569776129225869}
-  - component: {fileID: 2864569776129225868}
   - component: {fileID: 3683364624159314280}
   - component: {fileID: 1748063802}
+  - component: {fileID: 6144540075482180471}
   m_Layer: 0
   m_Name: RainBowTarr (6)
   m_TagString: Tarr
@@ -107,7 +107,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!68 &2864569776129225868
+--- !u!61 &3683364624159314280
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864569776129225857}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.091526955, y: -0.25739208}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.87, y: 0.9}
+    newSize: {x: 0.87, y: 0.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.37244648, y: 0.3648545}
+  m_EdgeRadius: 0
+--- !u!114 &1748063802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864569776129225857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411b2be71b420094e9940b653498c6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tarrhealth: 20
+  maxHealht: 20
+  tarrCollider1: {fileID: 0}
+  tarrCollider2: {fileID: 0}
+--- !u!68 &6144540075482180471
 EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,72 +165,25 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.43420872, y: 0.0034043873}
-  - {x: 0.4309648, y: -0.030428648}
-  - {x: 0.42085692, y: -0.13586195}
-  - {x: 0.4064879, y: -0.24819478}
-  - {x: 0.3837697, y: -0.3463232}
-  - {x: 0.31177855, y: -0.4302069}
-  - {x: 0.1270519, y: -0.4535513}
-  - {x: -0.062272817, y: -0.45149064}
-  - {x: -0.21777067, y: -0.41091532}
-  - {x: -0.33995533, y: -0.36426407}
-  - {x: -0.3927696, y: -0.30886006}
-  - {x: -0.40534055, y: -0.2581734}
-  - {x: -0.4137547, y: -0.17956358}
-  - {x: -0.36617303, y: -0.026987987}
-  - {x: -0.35561627, y: -0.00418593}
-  - {x: -0.19971915, y: 0.22579524}
-  - {x: -0.12018237, y: 0.31616446}
-  - {x: 0.012930373, y: 0.42553622}
-  - {x: 0.084354386, y: 0.44207948}
-  - {x: 0.17902057, y: 0.43238303}
-  - {x: 0.25653806, y: 0.37767872}
-  - {x: 0.365928, y: 0.2836353}
-  - {x: 0.41384155, y: 0.15936229}
-  - {x: 0.43500102, y: 0.000000029802322}
+  - {x: 0.42788416, y: -0.014417037}
+  - {x: 0.41738346, y: -0.21510431}
+  - {x: 0.37334266, y: -0.37008145}
+  - {x: 0.27941695, y: -0.45149338}
+  - {x: -0.06959553, y: -0.44406793}
+  - {x: -0.15338589, y: -0.42627487}
+  - {x: -0.3111983, y: -0.37141934}
+  - {x: -0.401605, y: -0.2863094}
+  - {x: -0.415522, y: -0.14434704}
+  - {x: -0.3487248, y: 0.015549071}
+  - {x: -0.20200573, y: 0.211893}
+  - {x: -0.05699545, y: 0.3684674}
+  - {x: 0.05874575, y: 0.4342386}
+  - {x: 0.1731191, y: 0.42518947}
+  - {x: 0.29968354, y: 0.3446349}
+  - {x: 0.3744383, y: 0.25823843}
+  - {x: 0.41299856, y: 0.14587575}
+  - {x: 0.4256895, y: -0.013966802}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!61 &3683364624159314280
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2864569776129225857}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.07495743, y: -0.28108275}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.87, y: 0.9}
-    newSize: {x: 0.87, y: 0.9}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.29378474, y: 0.328465}
-  m_EdgeRadius: 0
---- !u!114 &1748063802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2864569776129225857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411b2be71b420094e9940b653498c6df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tarrhealth: 20
-  tarrCollider1: {fileID: 0}
-  tarrCollider2: {fileID: 0}
